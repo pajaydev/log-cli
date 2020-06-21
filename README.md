@@ -25,10 +25,10 @@ logger.log('this is normal message');
 logger.success('this is success message');
 ```
 
-<img align="left" src="./log-input.png" height="280">
-<img align="left" src="./log-output.png" height="280">
+<img align="center" style="margin-left:25%" src="./log-input.png" styleheight="280">
+<img align="center" style="margin-left:25%" src="./log-output.png" height="200">
 
-## examples
+## Examples
 - [click here](https://github.com/pajaydev/log-cli/blob/master/example.js)
 
 ## Methods
