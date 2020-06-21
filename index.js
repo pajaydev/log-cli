@@ -11,56 +11,51 @@ const LOG_COLOR = {
 
 const LOG_PREFIX = {
     info: 'ℹ',
-	success: '✔',
-	warn: '⚠',
-	error: '✖'
-}
-
+    success: '✔',
+    warn: '⚠',
+    error: '✖'
+};
 
 class Logger {
-    constructor(){
+    constructor() {
         this.levels = ['error', 'info', 'success', 'warn'];
         this.loggerColor = LOG_COLOR;
         this.logPrefix = LOG_PREFIX;
         this.spinner = null;
         this.initLog(this.levels);
     }
-
     initLog(levels) {
         levels.forEach((level) => {
-            this[level] = (desc, prefixType) => { this.log(desc, prefixType, level)};
+            this[level] = (desc, prefixType) => { this.log(desc, prefixType ? level : false, level);};
         });
     }
-
     log(desc, prefixType, level) {
-        if(prefixType) {
+        if (prefixType) {
             desc = `${chalk[this.loggerColor[prefixType] || 'info'](LOG_PREFIX[prefixType])} ${desc}`;
         }
-        if(!level){
-            console.log(desc);
+        if (!level) {
+            console.log(desc); // eslint-disable-line no-console
         }
-        else if(level === "error") {
-            console.error(chalk[this.loggerColor[level]](desc));
-        }else{
-            console.log(chalk[this.loggerColor[level]](desc));
+        else if (level === 'error') {
+            console.error(chalk[this.loggerColor[level]](desc)); // eslint-disable-line no-console
         }
-    }
-
-    bold(desc, level = "info"){
-        if(level === "error") {
-            console.error(chalk[this.loggerColor[level]]['bold'](desc));
-        }else{
-            console.log(chalk[this.loggerColor[level]]['bold'](desc));
+        else {
+            console.log(chalk[this.loggerColor[level]](desc)); // eslint-disable-line no-console
         }
     }
-
+    bold(desc, level = 'info') {
+        if (level === 'error') {
+            console.error(chalk[this.loggerColor[level]].bold(desc)); // eslint-disable-line no-console
+        }
+        else {
+            console.log(chalk[this.loggerColor[level]].bold(desc)); // eslint-disable-line no-console
+        }
+    }
     setColor(color) {
-        if(!color) this.error("invalid input");
+        if (!color) this.error('invalid input');
         this.loggerColor = Object.assign(LOG_COLOR, color);
     }
-
-    // eslint-disable-next-line space-before-blocks
-    spin(task, text){
+    spin(task, text) {
         // wrap the task inside promise.
         const promiseTask = task();
         ora.promise(promiseTask, text);
@@ -70,15 +65,9 @@ class Logger {
         this.spinner = ora({ text, color}).start();
         return this.spinner;
     }
-    stopSpin(){
+    stopSpin() {
         this.spinner.stop();
-    } 
+    }
 }
 
-
-let logger = new Logger();
-logger.success("ERROR this is an error", 'info');
-logger.warn("this is a warning");
-logger.info("this is a warning");
-chalk.reset('Checking code formatting...')
-logger.bold('stringggg');
+module.exports = Logger;

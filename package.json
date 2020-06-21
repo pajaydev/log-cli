@@ -7,6 +7,20 @@
     "chalk": "^4.1.0",
     "ora": "^4.0.4"
   },
+  "author": "Ajaykumar prathap",
+  "eslintConfig": {
+    "extends": "ajay"
+  },
+  "scripts": {
+    "test": "eslint index.js"
+  },
+  "keywords": [
+    "logging",
+    "cli",
+    "chalk",
+    "ora",
+    "log-cli"
+  ],
   "devDependencies": {
     "eslint-config-ajay": "^1.0.8"
   }
